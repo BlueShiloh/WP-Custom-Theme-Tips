@@ -1,0 +1,64 @@
+Bootstrap model:
+
+          <!-- The Modal -->
+            <div class="modal" id="myPopup">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-light">
+                    
+                  <!-- Modal Header -->
+                  <div class="modal-header" style="border:none;background-color:#08bcdd;">
+                    <h4 class="modal-title text-light">Leaving so soon?</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  
+                  <!-- Modal body -->
+                  <div class="modal-body text-light" style="border:none;background-color:#08bcdd;">
+                    <p>
+                        Why not <a href="#" style="color:#ffffff;text-decoration:underline;"><strong>contact us</strong></a> to find out how we can help your project?
+                    </p>
+                  </div>
+                  
+                  <!-- Modal footer -->
+                  <div class="modal-footer d-flex justify-content-center" style="border:none;background-color:#08bcdd;">
+                      <div class="row">
+                          
+                          <div class="col-4 d-flex justify-content-center">
+                              <a class="modal-button" href="tel:+441234567">Call</a>
+                          </div>
+                          
+                           <div class="col-4 d-flex justify-content-center">
+                              <a class="modal-button" href="mailto:hi@email.com">Email</a>
+                          </div>
+                          
+                           <div class="col-4 d-flex justify-content-center">
+                              <button type="button" class="modal-button" data-dismiss="modal">Close</button>
+                          </div>
+                          
+                      </div>
+                  </div>
+                  
+                  
+                </div>
+              </div>
+            </div>
+
+
+
+
+JavaScript:
+
+
+          <script type="text/javascript">
+              $(document).ready(function(){
+                  
+                  $("body").mouseleave(function(){
+                      $("#myPopup").modal('show');
+                  });
+                  
+                  $(".close").click(function(){
+                      $("#myPopup").modal('hide');
+                  });
+                  
+              })
+              
+          </script>
