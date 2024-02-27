@@ -1,0 +1,29 @@
+CSS:
+          .navbar{
+              background:transparent!important;
+              /*background-color:transparent!important;
+              transition:0.75s ease!important;*/
+          }
+          
+          .navbar.scrolled {
+            background-color: #ffffff !important;
+            transition: background-color 1s linear;
+          }
+          
+          .navbar.scrolled .nav-link {
+            color: #3e3e3d !important;
+          }
+          
+
+JavaScript:
+(Placed before </body>)
+
+
+          <script>
+              $(function () {
+                $(document).scroll(function () {
+              	  var $nav = $(".navbar");
+              	  $nav.toggleClass('scrolled', $(this).scrollTop() > 760);
+              	});
+              });
+          </script>
