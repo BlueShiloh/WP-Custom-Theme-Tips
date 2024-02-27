@@ -1,0 +1,16 @@
+Place the following JavaScript before your closing body tag:
+
+
+          <script>
+          document.addEventListener('click', function(event) {
+              var isClickInsideNavbar = document.querySelector('.navbar-collapse').contains(event.target) || document.querySelector('.navbar-toggler').contains(event.target);
+          
+              if (!isClickInsideNavbar) {
+                  var navbarToggler = document.querySelector('.navbar-toggler');
+                  var navbarOpen = document.querySelector('.navbar-collapse.show');
+                  if (navbarOpen) {
+                      navbarToggler.click(); // Simulate a click on the toggler to close the navbar
+                  }
+              }
+          });
+          </script>
