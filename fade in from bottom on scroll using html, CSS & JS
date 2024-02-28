@@ -1,0 +1,48 @@
+html:
+
+          <div class="fade-in"></div>
+          <div class="fade-in"></div>
+          <div class="fade-in"></div>
+          <div class="fade-in"></div>
+
+          
+CSS:
+
+          .fade-in {
+            background: red;
+            height: 300px;
+            width: 300px;
+            margin-bottom: 100px;
+            opactiy:0;
+            transform: translateY(40%);
+            transition: all 2s ease-out;
+          }
+          
+          .active {
+            opacity: 4;
+            transform: translateY(0);
+          }
+
+
+JavaScript:
+(add before closing body tag)
+
+          <script>
+            const elements = document.querySelectorAll('.fade-in');
+            const options = {
+              root: null,
+              rootMargin: '0px',
+              threshold: .4
+            }
+            const callbacks = (entries) => {
+              entries.forEach(entry => {
+                if (entry.isIntersecting){
+                  entry.target.classList.add('active');
+                }
+              });
+            }
+            let observer = new IntersectionObserver(callbacks, options);
+            elements.forEach(element => {
+              observer.observe(element);
+            });
+          </script>
