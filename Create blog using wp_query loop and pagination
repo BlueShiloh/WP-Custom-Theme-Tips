@@ -1,0 +1,91 @@
+   <div class="row px-5 py-2">
+                   <?php
+                    $paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+                    $posts_per_page = ($paged == 1) ? 7 : 6; // Adjust number of posts per page based on page number
+                    $args = array(
+                        'post_type'      => 'post',  // Change to your custom post type if needed
+                        'posts_per_page' => $posts_per_page,// Set the number of posts to display per page (-1 for all)
+                        'order'          => 'DESC',  // Order by date in descending order
+                        'orderby'        => 'date',  // Order by date
+                        'paged'          => $paged    // Pagination
+                    );
+                    
+                    $query = new WP_Query($args);
+                    
+                    if ($query->have_posts()) :
+                        $count = 0; // Initialize count variable
+                        while ($query->have_posts()) : $query->the_post();
+                            // Check if it's the first page and first post
+                            if ($paged == 1 && $count == 0) {
+                            ?>
+                            <div class="post col-12"> <!--display the lastest post as a full-width featured post at top of page-->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h2>The latest...</h2>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img src="<?php the_field('thumbnail_image'); ?>" />
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <h2><?php the_field('post_title'); ?></h2>
+                                        <p><?php the_field('post_summary'); ?></p>
+                                        <p><?php the_field('post_author'); ?></p>
+                                        <p><?php the_field('post_date'); ?></p>
+                                        <!-- Button to open the full article -->
+                                        <span onclick="openNav()"><a href="<?php the_permalink(); ?>" role="button">Read full post</a></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        } else {
+                        ?>
+
+                            <div class="post col-lg-4 col-sm-6">  <!--display the other posts in columns using Bootstrap cards-->
+                                <div class="card-deck h-100">
+                                    <div class="card h-100 ">
+                                        <div class="card-body p-0">
+                                            <img src="<?php the_field('thumbnail_image'); ?>" />
+                                            <h2><?php the_field('post_title'); ?></h2>
+                                            <p><?php the_field('post_summary'); ?></p>
+                                        </div>
+                                        <div class="card-footer p-0">
+                                            <p><?php the_field('post_author'); ?></p>
+                                            <p><?php the_field('post_date'); ?></p>
+                                            <!-- Button to open the full article -->
+                                            <span style="margin-top:auto" onclick="openNav()"><a href="<?php the_permalink(); ?>" class="mt-auto mb-2 card-button" style="box-shadow: 3px 3px 3px 0px rgba(0,0,0,0.3);" role="button">Read full post</a></span>
+                                            <hr class="largevp-blog-line my-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <?php
+                        }
+                        $count++; // Increment the count variable
+                    endwhile;
+                        
+                            wp_reset_postdata();
+                        else :
+                            // No posts found
+                            echo 'No posts found.';
+                        endif;
+                        ?>
+                     
+               </div>
+
+
+               <!--Pagination-->
+               <div class="row p-5">
+                    <div class="col-12 d-flex justify-content-center pagination my-2">
+             
+                        <?php
+                        echo paginate_links(array(
+                            'total' => $query->max_num_pages,
+                            'prev_text' => __('&lt; Previous'),
+                            'next_text' => __('Next &gt;'),
+                        ));
+                        ?>
+                        
+                    </div>
+                </div>            
+                                    
